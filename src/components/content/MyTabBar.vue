@@ -4,7 +4,7 @@
       <van-tabbar-item icon="wap-home-o" to="/home">主页</van-tabbar-item>
       <van-tabbar-item icon="apps-o" to="/category">分类</van-tabbar-item>
       <van-tabbar-item icon="shopping-cart-o" to="/cart">购物车
-        <van-badge class="cart-badge" :content="20" max="9">
+        <van-badge class="cart-badge" :content="$store.state.goodsNumInCart" max="99">
           <div ></div>
         </van-badge>
       </van-tabbar-item>

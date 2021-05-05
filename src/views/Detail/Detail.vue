@@ -14,8 +14,8 @@
           <van-tag plain type="danger">新款</van-tag>
         </template>
         <template #footer>
-          <van-button type="warning"  @click="addCart(goods.id)">加购物车</van-button>
-          <van-button type="danger"  @click="goBuyItem(goods.id)">立即购买</van-button>
+          <van-button type="warning"  @click="addBookInCart">加购物车</van-button>
+          <van-button type="danger"  @click="goBuyItem">立即购买</van-button>
         </template>
       </van-card>
 
@@ -36,6 +36,8 @@
 <script>
 import { getDetail } from "network/detail";
 import GoodTabItem from "components/content/GoodTabItem"
+import { addCart } from "network/cart"
+import { Toast } from 'vant';
 
 export default {
   name: "Detail",
@@ -70,7 +72,7 @@ export default {
       getDetail(id).then((res) => {
         this.goods = res.goods;
         this.like_goods = res.like_goods;
-        console.log(this.goods);
+        // console.log(this.goods);
       });
     },
     onClickLeft() {
@@ -83,11 +85,26 @@ export default {
         this.$router.push({path:"/detail",query:{id}})
       
     },
-    addCart(id){
-
+    addBookInCart(){
+      addCart({
+        goods_id: this.goods.id,
+        num: 1
+        }).then(res =>{
+          if(res.status=='201' || res.status=='204'){
+            Toast.success("添加成功");
+            this.$store.dispatch("updateCartCount")
+          }
+        })
     },
-    goBuyItem(id){
-
+    goBuyItem(){
+      addCart({
+        goods_id: this.goods.id,
+        num: 1
+        }).then(res =>{
+          if(res.status=='201' || res.status=='204'){
+            this.$router.push({path:'/cart'})
+          }
+        })
     }
   },
   
