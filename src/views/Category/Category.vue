@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="图书分类" left-arrow @click-left="onClickLeft" />
+    <van-nav-bar title="图书分类" left-arrow @click-left="onClickLeft" fixed/>
 
     <div class="main-content">
       <van-sidebar class="siderbar" v-model="activeKey">
@@ -43,6 +43,7 @@
 
 <script>
 import { getCategories, getGoods } from "network/category";
+import { Toast } from 'vant';
 
 export default {
   name: "Category",
@@ -61,11 +62,11 @@ export default {
       currentCId: null,
     };
   },
-  computed: {},
   mounted() {
     async function loadDefaultData(orderType) {
       //request two parts data which are related
       try {
+        Toast.loading("数据加载中")
         let res_Category = await getCategories();
         let currentCId = res_Category.categories[0].children[0].id;
         let res_goods = await getGoods(currentCId, orderType);
@@ -117,6 +118,7 @@ export default {
 <style scoped>
 .main-content {
   display: flex;
+  margin: 50px auto;
 }
 
 .siderbar {

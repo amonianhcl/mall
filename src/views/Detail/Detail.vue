@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="图书详情" left-arrow @click-left="onClickLeft" />
+    <van-nav-bar title="图书详情" left-arrow @click-left="onClickLeft" fixed/>
     <div class="page">
       <img :src="goods.cover_url" />
       <van-card
@@ -113,6 +113,7 @@ export default {
 
 <style scoped>
 .page {
+  margin: 50px auto;
 }
 .comments {
   height: 100px;

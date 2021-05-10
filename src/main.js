@@ -12,9 +12,8 @@ import { Sticky ,Button} from 'vant';
 import { Grid, GridItem } from 'vant';
 import { Icon ,Card,SwipeCell,Cell} from 'vant';
 import { PullRefresh, Form, Field ,Stepper} from 'vant';
-import { Notify,Toast } from 'vant';
 import { Checkbox, CheckboxGroup,Image as VanImage ,SubmitBar } from 'vant';
-import { AddressEdit,AddressList } from 'vant';
+import { AddressEdit,AddressList,Area,Popup,List } from 'vant';
 //设置加载过程中的图片loading(懒加载的图片尚未过来时)
 Vue.use(Lazyload,{options:{
   loading: require("./assets/img/logo1.png")
@@ -24,11 +23,10 @@ Vue.use(SwipeItem).use(Sidebar).use(SidebarItem );
 Vue.use(Sticky).use(Collapse).use(CollapseItem);
 Vue.use(Tabbar).use(Button).use(Checkbox).use(CheckboxGroup);
 Vue.use(TabbarItem).use(Tag).use(SwipeCell).use(Cell);
-Vue.use(NavBar).use(Form).use(Field).use(ContactCard);
+Vue.use(NavBar).use(Form).use(Field).use(ContactCard).use(Card).use(List);
 Vue.use(Grid).use(VanImage).use(Stepper);
 Vue.use(GridItem).use(SubmitBar).use(AddressEdit).use(AddressList);
-Vue.use(PullRefresh);
-Vue.use(Card).use(Notify).use(Toast);
+Vue.use(PullRefresh).use(Area).use(Popup);
 new Vue({
   router,
   store,

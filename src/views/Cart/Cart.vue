@@ -4,6 +4,7 @@
       :title="'购物车(' + $store.state.goodsNumInCart + ')'"
       left-arrow
       @click-left="onClickLeft"
+      fixed
     />
 
     <van-checkbox-group
@@ -109,7 +110,12 @@ export default {
     },
     onClickLeft() {},
     onSubmit(){
-      this.$router.push({path:'/createorder',query:{}})
+      if(this.selected.length===0){
+        Toast("请选择商品")
+      }else{
+        this.$router.push({path:'/createorder'})
+      }
+      
     },
     beforeClose({ position, instance }) {
       switch (position) {
@@ -167,7 +173,8 @@ export default {
 
 <style scoped>
 #cart-list {
-  margin-top: 10px;
+  margin-top: 50px;
+  margin-bottom: 100px;
   /* margin-bottom: 100px; */
   /* background-color: lightslategray; */
 }
@@ -209,7 +216,7 @@ export default {
   margin-right: 10px;
 }
 .operation {
-  position: sticky;
+  position: fixed;
   bottom: 50px;
 }
 .operation .price {

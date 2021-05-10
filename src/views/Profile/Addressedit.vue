@@ -1,16 +1,20 @@
 <template>
   <div>
+    <van-nav-bar title="编辑地址" left-arrow @click-left="onClickLeft" fixed />
+
     <van-address-edit
+      class="address-edit"
       :area-list="areaList"
       :address-info="addressInfo"
-      show-postal
       show-set-default
       show-search-result
+      detail-rows= 2
       :search-result="searchResult"
       :area-columns-placeholder="['请选择', '请选择', '请选择']"
       @save="onSave"
       @change-detail="onChangeDetail"
     />
+
   </div>
 </template>
 
@@ -25,20 +29,35 @@ export default {
       areaList,
       addressInfo:{},
       searchResult: [],
+      address:{}
     };
   },
   mounted(){
     let info = this.$route.query;
-    if(Object.keys(info).length>0){
+    if(info.id){
       getAddress(info.id).then(res=>{
-        // this.addressInfo = res.;
+        this.addressInfo={
+          name: res.name,
+          tel: res.phone,
+          province: res.province,
+          city: res.city,
+          county: res.county,
+          addressDetail: res.address,
+          isDefault: res.is_default,
+          areaCode: "140105",
+        }      
       })
       
     }
   },
   methods: {
+    onClickLeft(){
+      this.$router.go(-1)
+    },
     onSave(value) {   
+      console.log(value)
       debugger
+      let id = this.$route.query.id;
       let data = {
         name: value.name,
         address: value.addressDetail,
@@ -48,11 +67,17 @@ export default {
         county: value.county,
         is_default: value.isDefault?1:0,
       };
-      console.log(data);
-      addAddress(data).then(res=>{
-        Toast.success('保存成功');
-        this.$router.go(-1);
-      })
+
+      if(id){
+        updateAddress(id,data).then(res=>{
+          Toast.success('跟新成功');
+        })
+      }else{        
+        addAddress(data).then(res=>{
+          Toast.success('保存成功');        
+        });
+      }
+      this.$router.go(-1);     
     },
     onDelete() {
       Toast('delete');
@@ -72,3 +97,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.address-edit{
+  margin: 50px auto;
+}
+</style>

@@ -1,19 +1,21 @@
 <template>
-  <div id="home-page">
-    <van-nav-bar title="图书商城" left-arrow @click-left="onClickLeft" fixed />
+  <div>
+    <van-nav-bar style="" title="图书商城" left-arrow @click-left="onClickLeft" fixed />
 
-    <van-swipe autoplay="3000">
-      <van-swipe-item v-for="(image, index) in slides" :key="index">
-        <img class="swipe-img" v-lazy="image.img_url" />
-      </van-swipe-item>
-    </van-swipe>
+    <div class="content">
+      <van-swipe autoplay="3000">
+        <van-swipe-item v-for="(image, index) in slides" :key="index">
+          <img class="swipe-img" v-lazy="image.img_url" />
+        </van-swipe-item>
+      </van-swipe>
 
-    <recommand class="recommand" :goods="recommands.list"></recommand>
+      <recommand class="recommand" :goods="recommands.list"></recommand>
 
-    <goods-tab
-      class="tab"
-      :tabs="{ sales: '畅销', new: '新书', recommend: '精选' }"
-    ></goods-tab>
+      <goods-tab
+        class="tab"
+        :tabs="{ sales: '畅销', new: '新书', recommend: '精选' }"
+      ></goods-tab>
+    </div>
   </div>
 </template>
 
@@ -32,34 +34,30 @@ export default {
   data() {
     return {
       slides: [],
-      recommands: { page: 0, list: [] },    
+      recommands: { page: 0, list: [] },
       categories: [],
     };
   },
   mounted() {
- 
-      getHomeAllData().then((res) => {
-        this.slides.push(...res.slides);
-        this.recommands.page = res.goods.current_page;
-        this.recommands.list = res.goods.data.slice(0, 4);
-        // console.log(res);
-      })
-
+    getHomeAllData().then((res) => {
+      this.slides.push(...res.slides);
+      this.recommands.page = res.goods.current_page;
+      this.recommands.list = res.goods.data.slice(0, 4);
+      // console.log(res);
+    });
   },
-  
+
   methods: {
     onClickLeft() {
       Toast("go left");
-    }
+    },
   },
 };
 </script>
 
 <style scoped>
-#home-page {
-  height: 100vh;
-  position: relative;
-  /* padding-bottom: 50px; */
+.content{
+  margin: 50px auto;
 }
 .swipe-img {
   height: 200px;

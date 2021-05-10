@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <van-nav-bar title="个人信息" left-arrow @click-left="onClickLeft" />
+  <div id="user-info">
+    <van-nav-bar title="个人信息" left-arrow @click-left="onClickLeft" fixed/>
     <van-cell title="我的收藏" is-link to="/collection" />
     <van-cell title="我的订单" is-link to="/orders" />
     <van-cell title="账号管理" is-link to="/account" />
@@ -31,6 +31,9 @@ export default {
 </script>
 
 <style scoped>
+#user-info{
+  margin:50px auto;
+}
 .logout{
   width: 80%;
   display: block;

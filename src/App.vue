@@ -16,7 +16,7 @@ export default {
 <style>
 @import 'assets/css/base.js';
 #app{
-  
+  width: 100vw;
 }
 #app .my-tab-bar{
   box-shadow: 0 2px 2px rgba(100,100,100,0.3);

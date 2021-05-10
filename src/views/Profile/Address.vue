@@ -1,6 +1,7 @@
 <template>
   <div>
-    <van-nav-bar title="收货地址" left-arrow @click-left="onClickLeft" />
+    <van-nav-bar title="收货地址" left-arrow @click-left="onClickLeft" fixed />
+
     <div id="address-list">
       <van-swipe-cell
         v-for="item in list"
@@ -34,7 +35,7 @@
             icon-size="18px"
             :name="item.id"
             v-model="item.is_default"
-            @click="onSetDefault"
+            @click="onSetDefault(item.id)"
             >默认地址</van-checkbox
           >
         </div>
@@ -71,8 +72,9 @@ export default {
       list: [],
     };
   },
-  mounted() {
+  created() {
     this.init();
+    console.log('init')
   },
   methods: {
     init() {
@@ -85,7 +87,7 @@ export default {
         .catch((err) => {});
     },
     onClickLeft() {
-      this.$router.go(-1);
+      this.$router.go(-1)
     },
     onAdd() {
       this.$router.push({ path: "/addressedit" });
@@ -96,9 +98,11 @@ export default {
         query: { id: index },
       });
     },
-    onSetDefault() {
-      console.log("set defualt");
-      //
+    onSetDefault(id) {
+      // cofnsole.log(id);
+      setAddressDefault(id).then(res=>{
+        this.init()
+      })
     },
     beforeClose({ position, instance }) {
       switch (position) {
@@ -128,7 +132,8 @@ export default {
 
 <style scoped>
 #address-list {
-  margin-top: 8px;
+  margin-top: 50px;
+  margin-bottom: 100px;
 }
 #address-list van-swipe-cell {
   margin: 5px auto;
@@ -168,8 +173,8 @@ export default {
   height: 100%;
 }
 .btn {
-  position: absolute;
-  bottom: 55px;
+  position: fixed;
+  bottom: 50px;
   left: 5%;
   right: 5%;
   width: 90%;

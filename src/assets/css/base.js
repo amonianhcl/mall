@@ -25,7 +25,7 @@ body {
   width: 100vw;
 }
 
-a{
+a {
   text-decoration: none;
   color: var(--color-tint);
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="用户注册" left-arrow @click-left="onClickLeft" />
+    <van-nav-bar title="用户注册" left-arrow @click-left="onClickLeft" fixed/>
 
     <van-form class="form" @submit="onSubmit">
       <van-field
